@@ -1,29 +1,20 @@
-const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-
+const PATHS = {
+    app: path.join(__dirname, 'app'),
+    build: path.join(__dirname, 'build')
+};
 module.exports = {
-    entry: [
-        path.resolve(__dirname, 'src/index')
-    ],
+    entry: {
+        app: PATHS.app,
+    },
     output: {
-        path: __dirname + '/dist',
-        publicPath: '/',
-        filename: 'bundle.js'
+        path: PATHS.build,
+        filename: '[name].js'
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin(),
-    ],
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                include: path.join(__dirname, 'src'),
-                use: ['babel-loader']
-            },
-            {
-                test: /(\.css)$/,
-                use: ['style-loader', 'css-loader']
-            },
-        ]
-    }
+        new HtmlWebpackPlugin({
+            title: 'Webpack demo'
+        }),
+    ]
 };
