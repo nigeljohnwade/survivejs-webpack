@@ -1,5 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const PurifyCssPlugin = require('purifycss-webpack');
 exports.devServer = ({ host, port } = {}) => ({
     devServer: {
         historyApiFallback: true,
@@ -64,3 +64,9 @@ exports.extractCss = ({ include, exclude, use }) => {
         plugins: [plugin]
     };
 };
+
+exports.purifyCss = ({ paths }) => ({
+    plugins: [
+        new PurifyCssPlugin({ paths })
+    ]
+});
