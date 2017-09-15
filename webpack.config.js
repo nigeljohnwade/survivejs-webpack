@@ -24,17 +24,19 @@ const commonConfig = merge([
             })
         ]
     },
-    parts.lintJavascript({ include: PATHS.app }),
-    parts.loadCss()
+    parts.lintJavascript({ include: PATHS.app })
 ]);
 
-const productionConfig = merge([]);
+const productionConfig = merge([
+    parts.extractCss({ use: 'css-loader' })
+]);
 
 const developmentConfig = merge([
     parts.devServer({
         host: process.env.HOST,
         port: process.env.HOST
-    })
+    }),
+    parts.loadCss()
 ]);
 module.exports = (env) => {
     if (env === 'production') {
