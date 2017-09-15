@@ -7,7 +7,8 @@
         "start": "webpack-dev-server --port 8081 --open --env development",
         "build": "webpack --env production",
         "test": "jest",
-        "lint:js": "eslint app/ webpack.*.js --cache --fix"
+        "lint:js": "eslint app/ webpack.*.js --cache --fix",
+        "lint:style": "stylelint app/**/*.css"
     },
     "author": "",
     "license": "ISC",
@@ -30,9 +31,11 @@
         "jest": "^21.1.0",
         "less": "^2.7.2",
         "less-loader": "^4.0.5",
+        "postcss-loader": "^2.0.6",
         "purify-css": "^1.2.5",
         "purifycss-webpack": "^0.7.0",
         "style-loader": "^0.18.2",
+        "stylelint": "^8.1.1",
         "webpack": "^3.5.6",
         "webpack-dev-server": "^2.8.1",
         "webpack-merge": "^4.1.0"
