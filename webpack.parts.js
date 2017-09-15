@@ -1,4 +1,4 @@
-exports.devServer = ({host, port} = {})=>({
+exports.devServer = ({ host, port } = {}) => ({
     devServer: {
         historyApiFallback: true,
         stats: 'errors-only',
@@ -11,7 +11,7 @@ exports.devServer = ({host, port} = {})=>({
     }
 });
 
-exports.lintJavascript = ({include, exclude, options}) => ({
+exports.lintJavascript = ({ include, exclude, options }) => ({
     module: {
         rules: [{
             test: /\.js$/,
@@ -21,5 +21,21 @@ exports.lintJavascript = ({include, exclude, options}) => ({
                 emitWarning: true
             }
         }]
+    }
+});
+
+exports.loadCss = ({ include, exclude } = {}) => ({
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                include,
+                exclude,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
     }
 });
