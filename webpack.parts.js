@@ -28,12 +28,13 @@ exports.loadCss = ({ include, exclude } = {}) => ({
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.less$/,
                 include,
                 exclude,
                 use: [
                     'style-loader',
-                    'css-loader'
+                    'css-loader',
+                    'less-loader'
                 ]
             }
         ]
