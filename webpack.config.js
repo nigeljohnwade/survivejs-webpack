@@ -12,7 +12,11 @@ const developmentConfig = () => {
             historyApiFallback: true,
             stats: 'errors-only',
             host: process.env.HOST,
-            port: process.env.PORT
+            port: process.env.PORT,
+            overlay: {
+                errors: true,
+                warnings: true
+            }
         },
         module: {
             rules: [{
