@@ -8,9 +8,10 @@
   </style>
 </head>
 <body>
+    <button class="app-activateRecognition">Listen for colour command</button>
   <p class="output"></p>
 <script type="application/javascript">
-var grammar = '#JSGF V1.0; grammar colors; public <color> = aqua | azure | beige | bisque | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;'
+var grammar = '#JSGF V1.0; grammar colors; public <color> = aqua|azure|beige|bisque|black|blue|brown|chocolate|coral|crimson|cyan|fuchsia|ghostwhite|gold|goldenrod|gray|green|indigo|ivory|khaki|lavender|lime|linen|magenta|maroon|moccasin|navy|olive|orange|orchid|peru|pink|plum|purple|red|salmon|sienna|silver|snow|tan|teal|thistle|tomato|turquoise|violet|white|yellow ;';
 var recognition = new webkitSpeechRecognition();
 var speechRecognitionList = new webkitSpeechGrammarList();
 speechRecognitionList.addFromString(grammar, 1);
@@ -22,21 +23,26 @@ recognition.maxAlternatives = 1;
 
 var diagnostic = document.querySelector('.output');
 var bg = document.querySelector('html');
+var colors = ['aqua', 'azure', 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate', 'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'indigo', 'ivory', 'khaki', 'lavender', 'lime', 'linen', 'magenta', 'maroon', 'moccasin', 'navy', 'olive', 'orange', 'orchid', 'peru', 'pink', 'plum', 'purple', 'red', 'salmon', 'sienna', 'silver', 'snow', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'];
+var coloursRegex = /\baqua\b|\bazure\b|\bbeige\b|\bbisque\b|\bblack\b|\bblue\b|\bbrown\b|\bchocolate\b|\bcoral\b|\bcrimson\b|\bcyan\b|\bfuchsia\b|\bghostwhite\b|\bgold\b|\bgoldenrod\b|\bgray\b|\bgreen\b|\bindigo\b|\bivory\b|\bkhaki\b|\blavender\b|\blime\b|\blinen\b|\bmagenta\b|\bmaroon\b|\bmoccasin\b|\bnavy\b|\bolive\b|\borange\b|\borchid\b|\bperu\b|\bpink\b|\bplum\b|\bpurple\b|\bred\b|\bsalmon\b|\bsienna\b|\bsilver\b|\bsnow\b|\btan\b|\bteal\b|\bthistle\b|\btomato\b|\bturquoise\b|\bviolet\b|\bwhite\b|\byellow\b/gi;
 
-document.body.onclick = function() {
-  recognition.start();
-  console.log('Ready to receive a color command.');
+document.querySelector('.app-activateRecognition').onclick = function() {
+   recognition.start();
+   diagnostic.textContext = 'Ready to receive a color command.';
 }
 
 recognition.onaudiostart = function(event){
-  console.log(event);
+   console.log(event);
 }
 
 recognition.onresult = function(event) {
-  console.log(event);
-  var color = event.results[0][0].transcript;
-  diagnostic.textContent = 'Result received: ' + color;
-  bg.style.backgroundColor = color;
+    console.log(event.results[0][0].transcript);
+    console.log(event.results[0][0].transcript.match(coloursRegex));
+    if(event.results[0][0].transcript.match(coloursRegex) && event.results[0][0].transcript.match(coloursRegex).length > 0) {
+        var color = event.results[0][0].transcript.match(coloursRegex)[0];
+        diagnostic.textContent = 'Result received: ' + color;
+        bg.style.backgroundColor = color;
+    }
 }
 </script>
 </body>
